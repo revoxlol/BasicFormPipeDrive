@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import Modal from './Modal'; 
 const JobForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -23,6 +23,7 @@ const JobForm = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [dealLink, setDealLink] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -128,6 +129,13 @@ const JobForm = () => {
         <input type="time" id="endTime" placeholder="End time" value={formData.endTime} onChange={handleChange} />
       </div>
       <button onClick={createJob}>Create Job</button>
+      <button onClick={() => setIsModalOpen(true)}>Open Job Creation</button> {}
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        iframeSrc="http://localhost:3000" //I'm testing it on my machine so to test it, make sure you run the react 
+                                          //  app as well, usually on "http://localhost:3000"
+      />
       {successMessage && (
         <div style={{ color: successMessage.includes('successfully') ? 'green' : 'red', marginTop: '20px' }}>
           {successMessage}
